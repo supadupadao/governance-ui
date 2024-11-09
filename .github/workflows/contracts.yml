@@ -1,0 +1,29 @@
+name: Code checks
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+
+    - name: NPM Install
+      run: npm install
+
+    - name: Build code
+      run: npm run build
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Type check
+      run: npm run type-check
